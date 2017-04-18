@@ -3,8 +3,8 @@
 Collect stream data into a catchment.
 
 `Catchment` extends `Writable`, and pushes incoming data into an array. When the stream is finished,
-is called, a promise from `.promise` property is fulfilled with joined data. If an error occurred,
-the promise is rejected.
+(e.g., `.end()` is called), a promise from `.promise` property is fulfilled with joined data. If an
+error occurred, the promise is rejected.
 
 ## Example:
 
