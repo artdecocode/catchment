@@ -4,8 +4,12 @@
   "description": "Collect stream data into a catchment.",
   "main": "src/index.js",
   "directories": {
-    "test": "test"
+    "test": "test",
+    "lib": "src"
   },
+  "files": [
+    "src/"
+  ],
   "scripts": {
     "test": "zoroaster test"
   },
