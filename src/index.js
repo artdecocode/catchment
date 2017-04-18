@@ -27,4 +27,4 @@ class Catchment extends Writable {
     }
 }
 
-module.exports = Catchment;
+module.exports = Catchment
