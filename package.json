@@ -8,7 +8,7 @@
     "lib": "src"
   },
   "files": [
-    "src/"
+    "src"
   ],
   "scripts": {
     "test": "zoroaster test"
@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/Sobesednik/catchment#readme",
   "devDependencies": {
-    "zoroaster": "^0.3.0"
+    "noddy": "1.1.0",
+    "zoroaster": "0.5.3"
   }
 }

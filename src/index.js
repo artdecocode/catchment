@@ -12,11 +12,19 @@ class Catchment extends Writable {
         this._caughtData = []
         this._promise = new Promise((resolve, reject) => {
             this.on('finish', () => {
-                const data = joinBufferData(this._caughtData)
-                resolve(data)
+                if (options && options.binary) {
+                    const data = Buffer.concat(this._caughtData)
+                    resolve(data)
+                } else {
+                    const data = joinBufferData(this._caughtData)
+                    resolve(data)
+                }
             })
             this.on('error', reject)
         })
+        if (options && options.rs) {
+            options.rs.pipe(this)
+        }
     }
     _write(chunk, encoding, callback) {
         this._caughtData.push(chunk)
