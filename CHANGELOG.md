@@ -1,5 +1,9 @@
 ## 2 January 2018
 
+### 2.0.1
+
+- [bugfix] publish `es5/src/index.js`
+
 ### 2.0.0
 
 - [feature] pass `rs` property to pipe a `Readable` stream automatically.
