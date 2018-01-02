@@ -9,7 +9,8 @@
   },
   "files": [
     "src",
-    "es5/src"
+    "es5/src",
+    "es5/index.js"
   ],
   "scripts": {
     "test": "zoroaster test",
