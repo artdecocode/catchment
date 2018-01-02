@@ -1,0 +1,24 @@
+{
+    "presets": [
+        ["env", {
+            "exclude": [
+                "transform-regenerator",
+                "transform-async-to-generator",
+                "transform-es2015-classes"
+            ],
+            "debug": true,
+            "targets": {
+                "node": 4
+            }
+        }]
+    ],
+    "plugins": [
+        ["fast-async", {
+            "spec": true
+        }],
+        ["transform-rename-import", {
+            "original": "noddy",
+            "replacement": "noddy/es5"
+        }]
+    ]
+}

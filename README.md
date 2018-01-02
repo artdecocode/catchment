@@ -8,6 +8,17 @@ Collect stream data into a catchment.
 npm i catchment
 ```
 
+## ES5
+
+The package uses some newer language features. For your convenience, it's been
+transpiled to be compatible with Node 4. You can use the following snippet.
+
+```js
+const catchment = require('catchment/es5')
+```
+
+## API
+
 `Catchment` extends `Writable`, and pushes incoming data into an array. When the
 stream is finished, (e.g., `.end()` is called), a promise from `.promise`
 property is fulfilled with joined data. If an error occurred, the promise is
