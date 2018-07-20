@@ -1,3 +1,11 @@
+## 21 July 2018
+
+### 3.0.0
+
+- [package] Move to `Art Deco`, bring structure up-to-date.
+- [ecma] Use `import` and `export` syntax.
+- [feature] Reject the promise if piped `rs` emits an error.
+
 ## 2 January 2018
 
 ### 2.0.1
