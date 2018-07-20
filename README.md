@@ -112,6 +112,6 @@ const rs = new Readable({
 
 ---
 
-(c) 2018 [sobesednik.media][1]
+(c) 2018 [Art Deco][1]
 
-[1]: https://sobesednik.media
+[1]: https://artdeco.bz

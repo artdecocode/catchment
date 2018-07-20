@@ -22,17 +22,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sobesednik/catchment.git"
+    "url": "git+https://github.com/artdecocode/catchment.git"
   },
   "keywords": [
     "stream"
   ],
-  "author": "Anton <anton@sobes.io>",
+  "author": "Anton <anton@adc.sh>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Sobesednik/catchment/issues"
+    "url": "https://github.com/artdecocode/catchment/issues"
   },
-  "homepage": "https://github.com/Sobesednik/catchment#readme",
+  "homepage": "https://github.com/artdecocode/catchment#readme",
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-plugin-transform-rename-import": "2.1.1",
