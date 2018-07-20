@@ -30,6 +30,9 @@
   },
   "homepage": "https://github.com/artdecocode/catchment#readme",
   "devDependencies": {
+    "documentary": "1.10.0",
+    "eslint-config-artdeco": "1.0.1",
+    "yarn-s": "1.1.0",
     "zoroaster": "2.1.0"
   }
 }
