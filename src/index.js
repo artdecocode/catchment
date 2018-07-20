@@ -47,6 +47,7 @@ class Catchment extends Writable {
     this._caughtData.push(chunk)
     callback()
   }
+  /** @type {Promise.<string|Buffer>} */
   get promise() {
     return this._promise
   }
