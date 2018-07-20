@@ -1,5 +1,5 @@
-const { Readable } = require('stream')
-const Catchment = require('..')
+import { Readable } from 'stream'
+import Catchment from '../src'
 
 const data = 'test-data'
 const catchment = new Catchment()

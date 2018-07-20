@@ -1,39 +1,24 @@
-const { equal, throws, deepEqual } = require('zoroaster/assert')
-const { Readable } = require('stream')
-const { nodeGte } = require('noddy')
-const Catchment = require('../..')
+import { equal, throws, deepEqual } from 'zoroaster/assert'
+import Catchment from '../../src'
+import Context from '../context'
 
-function createReadable(data) {
-  const rs = new Readable({
-    read() {
-      for (let i = 0; i < data.length; i++) {
-        const c = data.charAt(i)
-        this.push(c)
-      }
-      this.push(null)
-    },
-  })
-  return rs
-}
-
-module.exports = {
-  async 'should collect string stream data'() {
-    const data = 'test-data'
+/** @type {Object.<string, (c: Context)>} */
+const T = {
+  context: Context,
+  async 'collects string stream data'({ createReadable, data }) {
     const catchment = new Catchment()
     const rs = createReadable(data)
     rs.pipe(catchment)
     const res = await catchment.promise
     equal(res, data)
   },
-  async 'should collect string stream data from passed rs'() {
-    const data = 'test-data'
+  async 'collects string stream data from passed rs'({ createReadable, data }) {
     const rs = createReadable(data)
     const catchment = new Catchment({ rs })
     const res = await catchment.promise
     equal(res, data)
   },
-  async 'should read binary data'() {
-    const data = 'test-data'
+  async 'reads binary data'({ createReadable, nodeGte, data }) {
     const expected = nodeGte('v5.10.0') ? Buffer.from(data) : new Buffer(data)
     const catchment = new Catchment({
       binary: true,
@@ -43,7 +28,7 @@ module.exports = {
     const res = await catchment.promise
     deepEqual(res, expected)
   },
-  async 'should return a rejected promise on error'() {
+  async 'returns a rejected promise on error'() {
     const error = new Error('test-error')
     await throws({
       async fn() {
@@ -54,4 +39,20 @@ module.exports = {
       error,
     })
   },
+  async 'returns a rejected promise on error in piped rs'({ createReadable }) {
+    const error = new Error('test-error')
+    await throws({
+      async fn() {
+        const rs = createReadable('test')
+        const { promise } = new Catchment({
+          rs,
+        })
+        rs.emit('error', error)
+        await promise
+      },
+      error,
+    })
+  },
 }
+
+export default T
