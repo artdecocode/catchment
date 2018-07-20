@@ -1,15 +1,15 @@
 /* yarn example/rs.js */
 import Catchment from '../src'
-import { createReadable } from './lib'
+import { createReadStream } from 'fs'
 
 (async () => {
   try {
-    const rs = createReadable('test-data')
+    const rs = createReadStream('missing-file.txt')
     const { promise } = new Catchment({ rs })
 
     const res = await promise
     console.log(res)
-  } catch (err) {
-    console.log(err)
+  } catch ({ message }) {
+    console.log(message)
   }
 })()
