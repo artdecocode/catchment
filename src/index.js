@@ -1,4 +1,4 @@
-const { Writable } = require('stream')
+import { Writable } from 'stream'
 
 function joinBufferData(array) {
   return array.join('')
@@ -6,32 +6,42 @@ function joinBufferData(array) {
 
 class Catchment extends Writable {
   /**
-     * Create a new catchment to pipe a readable stream into and collect all
-     * emitted data.
-     * @param {object} options options are passed to Writable super constructor
-     * @param {Readable} [options.rs] a readable stream to automatically pipe
-     * into the catchment
-     * @param {boolean} [options.binary] whether to return a buffer
-     */
-  constructor(options) {
+   * Create a new catchment to pipe a readable stream into and collect all
+   * emitted data.
+   * @constructor
+   * @param {Object} options Options to pass to `Writable` the super constructor, and other shown below.
+   * @param {Readable} [options.rs] A readable stream to automatically pipe into the catchment. If an error occurs in that stream, the catchment promise will be rejected.
+   * @param {boolean} [options.binary=false] Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. Default `false`.
+   * @example
+   *
+   * import { createReadStream } from 'fs'
+   * import Catchment from 'catchment'
+   *
+   * const rs = createReadStream('file.txt')
+   * const { promise } = new Catchment({ rs })
+   * const res = await promise
+   */
+  constructor(options = {}) {
     super(options)
+    const { binary, rs } = options
     this._caughtData = []
-    this._promise = new Promise((resolve, reject) => {
+    this._promise = new Promise((r, j) => {
       this.on('finish', () => {
-        if (options && options.binary) {
-          const data = Buffer.concat(this._caughtData)
-          resolve(data)
+        let d
+        if (binary) {
+          d = Buffer.concat(this._caughtData)
         } else {
-          const data = joinBufferData(this._caughtData)
-          resolve(data)
+          d = joinBufferData(this._caughtData)
         }
+        r(d)
         this._caughtData = []
       })
-      this.on('error', reject)
+      this.on('error', j)
+      if (rs) {
+        rs.on('error', j)
+        rs.pipe(this)
+      }
     })
-    if (options && options.rs) {
-      options.rs.pipe(this)
-    }
   }
   _write(chunk, encoding, callback) {
     this._caughtData.push(chunk)
@@ -42,4 +52,11 @@ class Catchment extends Writable {
   }
 }
 
-module.exports = Catchment
+/**
+ * @typedef {import('stream').Readable} Readable
+ * @typedef {Object} Options Options to pass to `Writable` the super constructor, and other shown below.
+ * @prop {Readable} rs A readable stream to automatically pipe into the catchment.
+ * @prop {boolean} binary Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method.
+ */
+
+export default Catchment
