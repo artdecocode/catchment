@@ -1,21 +1,15 @@
-const { Readable } = require('stream')
-const Catchment = require('..')
-
-const data = 'test-data'
-
-const rs = new Readable({
-  read() {
-    for (let i = 0; i < data.length; i++) {
-      const c = data.charAt(i)
-      this.push(c)
-    }
-    this.push(null)
-  },
-})
-
-const catchment = new Catchment({ rs });
+/* yarn example/rs.js */
+import Catchment from '../src'
+import { createReadable } from './lib'
 
 (async () => {
-  const res = await catchment.promise
-  console.log(res)
+  try {
+    const rs = createReadable('test-data')
+    const { promise } = new Catchment({ rs })
+
+    const res = await promise
+    console.log(res)
+  } catch (err) {
+    console.log(err)
+  }
 })()

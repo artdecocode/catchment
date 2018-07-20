@@ -1,22 +1,16 @@
-const { Readable } = require('stream')
-const Catchment = require('..')
-
-const data = 'test-data'
-
-const rs = new Readable({
-  read() {
-    for (let i = 0; i < data.length; i++) {
-      const c = data.charAt(i)
-      this.push(c)
-    }
-    this.push(null)
-  },
-});
+/* yarn example/binary.js */
+import Catchment from '../src'
+import { createReadable } from './lib'
 
 (async () => {
-  const catchment = new Catchment({ binary: true })
-  rs.pipe(catchment)
+  try {
+    const rs = createReadable('test-data')
+    const catchment = new Catchment({ binary: true })
+    rs.pipe(catchment)
 
-  const res = await catchment.promise
-  console.log(res) // <Buffer 74 65 73 74 2d 64 61 74 61>
+    const res = await catchment.promise
+    console.log(res)
+  } catch (err) {
+    console.log(err)
+  }
 })()

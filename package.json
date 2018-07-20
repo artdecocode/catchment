@@ -14,7 +14,10 @@
     "b": "yarn-s doc build",
     "build": "b --source-maps",
     "e": "node example",
-    "doc": "NODE_DEBUG=doc doc documentary -o README.md"
+    "doc": "NODE_DEBUG=doc doc documentary -o README.md",
+    "example/catchment.js": "yarn e example/catchment",
+    "example/binary.js": "yarn e example/binary",
+    "example/rs.js": "yarn e example/rs"
   },
   "repository": {
     "type": "git",
