@@ -1,6 +1,6 @@
 {
   "name": "catchment",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Collect stream data into a catchment.",
   "main": "build",
   "files": [
