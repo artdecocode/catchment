@@ -2,23 +2,19 @@
   "name": "catchment",
   "version": "2.0.1",
   "description": "Collect stream data into a catchment.",
-  "main": "src/index.js",
-  "directories": {
-    "test": "test",
-    "lib": "src"
-  },
+  "main": "build",
   "files": [
-    "src",
-    "es5/src",
-    "es5/index.js"
+    "build"
   ],
   "scripts": {
-    "test": "zoroaster test",
-    "test-es5": "zoroaster es5/test/spec",
-    "build-src": "babel src --out-dir es5/src",
-    "build-test": "babel test --out-dir es5/test",
-    "build": "run-s build-src build-test",
-    "b5": "run-s build test-es5"
+    "t": "zoroaster -b",
+    "test": "zoroaster test/spec -b",
+    "test-build": "BABEL_ENV=test-build yarn test",
+    "test-examples/": "ZOROASTER_TIMEOUT=5000 zoroaster test-examples/spec -b",
+    "b": "yarn-s doc build",
+    "build": "b --source-maps",
+    "e": "node example",
+    "doc": "NODE_DEBUG=doc doc documentary -o README.md"
   },
   "repository": {
     "type": "git",
@@ -34,12 +30,6 @@
   },
   "homepage": "https://github.com/artdecocode/catchment#readme",
   "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-plugin-transform-rename-import": "2.1.1",
-    "babel-preset-env": "1.6.1",
-    "fast-async": "6.3.0",
-    "noddy": "1.1.0",
-    "npm-run-all": "4.1.2",
-    "zoroaster": "0.5.3"
+    "zoroaster": "2.1.0"
   }
 }
