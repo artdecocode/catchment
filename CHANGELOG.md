@@ -1,3 +1,10 @@
+## 1 September 2018
+
+### 3.0.1
+
+- [doc] Place `Options` type in `types.xml`; more JSDoc.
+- [build] Build with [`alamode`](https://alamode.cc)
+
 ## 21 July 2018
 
 ### 3.0.0
