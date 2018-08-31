@@ -1,9 +1,4 @@
 
-#### Options
-
-An optional options object can be passed to the constructor.
-
-%TYPEDEF types/index.xml%
 
 <!-- %TYPE true
 <p name="binary" type="boolean">
