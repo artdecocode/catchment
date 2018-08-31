@@ -24,7 +24,16 @@
     "url": "git+https://github.com/artdecocode/catchment.git"
   },
   "keywords": [
-    "stream"
+    "stream",
+    "buffer",
+    "collect",
+    "readable",
+    "memory",
+    "writable",
+    "readable",
+    "promise",
+    "data",
+    "resolve"
   ],
   "author": "Anton <anton@adc.sh>",
   "license": "MIT",
