@@ -6,7 +6,7 @@ _Catchment_ extends `Writable`, and pushes incoming data into an internal array.
 
 ```#### constructor => Catchment
 [
-  ["options?", "COptions"]
+  ["options?", "Options"]
 ]
 ```
 

@@ -12,11 +12,9 @@ yarn add -E catchment
 
 - [Table of Contents](#table-of-contents)
 - [API](#api)
-  * [`COptions` Type](#coptions-type)
-    * [<code>binary</code>](#binary)
-    * [<code>rs</code>](#rs)
   * [`Catchment` Class](#catchment-class)
-    * [`constructor(options?: COptions): Catchment`](#constructoroptions-coptions-catchment)
+    * [`constructor(options?: Options): Catchment`](#constructoroptions-options-catchment)
+    * [Options](#options)
 
 ## API
 
@@ -26,39 +24,12 @@ The package exports the default `Catchment` class.
 import Catchment from 'catchment'
 ```
 
-### `COptions` Type
-
-An optional options object can be passed to the constructor.
-
-<table>
- <thead>
-  <tr>
-   <th>Property</th>
-   <th>Type</th>
-   <th>Description</th>
-  </tr>
- </thead>
- <tbody>
-  <tr>
-   <td><a name="binary"><code>binary</code></a></td>
-   <td><em>boolean</em></td>
-   <td>Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with <code>.join('')</code> method. Default <code>false</code>.</td>
-  </tr>
-  <tr>
-   <td><a name="rs"><code>rs</code></a></td>
-   <td><em>Readable</em></td>
-   <td>A readable stream to automatically pipe into the catchment. If an error occurs in this stream, the catchment promise will be rejected.</td>
-  </tr>
- </tbody>
-</table>
-
-
 ### `Catchment` Class
 
 _Catchment_ extends `Writable`, and pushes incoming data into an internal array. When the stream finishes, a promise from `.promise` property is fulfilled with joined data. If an error occurred, the promise is rejected.
 
 
-#### `constructor(`<br/>&nbsp;&nbsp;`options?: COptions,`<br/>`): Catchment`
+#### `constructor(`<br/>&nbsp;&nbsp;`options?: Options,`<br/>`): Catchment`
 
 A new _Catchment_ can be created with a constructor, which accepts optional options.
 
@@ -144,6 +115,20 @@ import { createReadStream } from 'fs'
 ```
 ENOENT: no such file or directory, open 'missing-file.txt'
 ```
+
+#### Options
+
+An optional options object can be passed to the constructor.
+
+`import('stream').Readable` __<a name="readable">`Readable`</a>__
+
+__`Options`__: Options to pass to the `Writable` super constructor, and others shown below.
+
+| Name | Type | Description | Default |
+| ---- | ---- | ----------- | ------- |
+| rs | [_Readable_](#readable) | A readable stream to automatically pipe into the catchment. If an error occurs during reading of this stream, the catchment promise will be rejected with it. | - |
+| binary | _boolean_ | Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. | `false` |
+
 
 ---
 
