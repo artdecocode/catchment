@@ -7,14 +7,14 @@
     "build"
   ],
   "scripts": {
-    "t": "zoroaster -b",
-    "test": "zoroaster test/spec -b",
-    "test-build": "BABEL_ENV=test-build yarn test",
+    "t": "zoroaster -a",
+    "test": "yarn t test/spec",
+    "test-build": "ALAMODE_ENV=test-build yarn test",
     "test-examples/": "ZOROASTER_TIMEOUT=5000 zoroaster test-examples/spec -b",
-    "b": "yarn-s doc build",
-    "build": "b --source-maps",
-    "e": "node example",
+    "b": "alamode src -o build",
     "doc": "NODE_DEBUG=doc doc documentary -o README.md",
+    "build": "yarn-s doc b",
+    "e": "node example",
     "example/catchment.js": "yarn e example/catchment",
     "example/binary.js": "yarn e example/binary",
     "example/rs.js": "yarn e example/rs"
@@ -33,10 +33,11 @@
   },
   "homepage": "https://github.com/artdecocode/catchment#readme",
   "devDependencies": {
+    "alamode": "1.3.0",
     "documentary": "1.10.0",
     "eslint-config-artdeco": "1.0.1",
     "noddy": "1.1.1",
     "yarn-s": "1.1.0",
-    "zoroaster": "2.1.0"
+    "zoroaster": "2.4.0"
   }
 }
