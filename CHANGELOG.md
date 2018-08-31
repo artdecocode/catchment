@@ -2,7 +2,7 @@
 
 ### 3.0.1
 
-- [doc] Place `Options` type in `types.xml`; more JSDoc.
+- [doc] Place `Options` type in `types.xml`; more JSDoc; structure docs better.
 - [build] Build with [`alamode`](https://alamode.cc)
 
 ## 21 July 2018
