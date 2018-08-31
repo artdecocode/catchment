@@ -1,0 +1,11 @@
+<types>
+  <import name="Readable" from="stream" />
+  <type name="Options" desc="Options to pass to the `Writable` super constructor, and others shown below.">
+    <prop opt name="rs" type="Readable">
+      A readable stream to automatically pipe into the catchment. If an error occurs during reading of this stream, the catchment promise will be rejected with it.
+    </prop>
+    <prop boolean name="binary" default="false">
+      Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method.
+    </prop>
+  </type>
+</types>

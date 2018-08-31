@@ -4,14 +4,16 @@ function joinBufferData(array) {
   return array.join('')
 }
 
+/**
+ * A writable stream which collects incoming data into memory, and provides a promise to way for the stream to finish. The promise is resolved with joined chunks.
+ */
 class Catchment extends Writable {
   /**
-   * Create a new catchment to pipe a readable stream into and collect all
-   * emitted data.
+   * Create a new catchment to pipe a readable stream into and collect all emitted data.
    * @constructor
-   * @param {Object} options Options to pass to `Writable` the super constructor, and other shown below.
-   * @param {Readable} [options.rs] A readable stream to automatically pipe into the catchment. If an error occurs in that stream, the catchment promise will be rejected.
-   * @param {boolean} [options.binary=false] Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. Default `false`.
+   * @param {Options} [options] Options to pass to the `Writable` super constructor, and others shown below.
+ * @param {Readable} [options.rs] A readable stream to automatically pipe into the catchment. If an error occurs during reading of this stream, the catchment promise will be rejected with it.
+ * @param {boolean} [options.binary=false] Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. Default `false`.
    * @example
    *
    * import { createReadStream } from 'fs'
@@ -47,17 +49,22 @@ class Catchment extends Writable {
     this._caughtData.push(chunk)
     callback()
   }
-  /** @type {Promise.<string|Buffer>} */
+  /**
+   * A promise which will resolve will all data when the stream finishes.
+   * @type {Promise.<string|Buffer>}
+   */
   get promise() {
     return this._promise
   }
 }
 
+/* documentary types/index.xml */
 /**
  * @typedef {import('stream').Readable} Readable
- * @typedef {Object} Options Options to pass to `Writable` the super constructor, and other shown below.
- * @prop {Readable} rs A readable stream to automatically pipe into the catchment.
- * @prop {boolean} binary Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method.
+ *
+ * @typedef {Object} Options Options to pass to the `Writable` super constructor, and others shown below.
+ * @prop {Readable} [rs] A readable stream to automatically pipe into the catchment. If an error occurs during reading of this stream, the catchment promise will be rejected with it.
+ * @prop {boolean} [binary=false] Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. Default `false`.
  */
 
 module.exports=Catchment
