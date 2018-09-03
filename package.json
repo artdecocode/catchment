@@ -42,11 +42,11 @@
   },
   "homepage": "https://github.com/artdecocode/catchment#readme",
   "devDependencies": {
-    "alamode": "1.3.0",
-    "documentary": "1.10.0",
+    "alamode": "1.4.0",
+    "documentary": "1.11.0",
     "eslint-config-artdeco": "1.0.1",
     "noddy": "1.1.1",
     "yarn-s": "1.1.0",
-    "zoroaster": "2.4.0"
+    "zoroaster": "3.0.0"
   }
 }
