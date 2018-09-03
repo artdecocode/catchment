@@ -1,0 +1,8 @@
+<types>
+  <import name="Readable" from="stream" />
+  <type name="CollectOptions" desc="Options when collecting data into a catchment. They can extend `Writable` options which will be passed to the `Catchment` constructor.">
+    <prop boolean name="binary" default="false">
+      Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method.
+    </prop>
+  </type>
+</types>

@@ -18,6 +18,9 @@ export default class Context {
     })
     return rs
   }
+  getBuffer(data) {
+    return nodeGte('v5.10.0') ? Buffer.from(data) : new Buffer(data)
+  }
   get nodeGte() {
     return nodeGte
   }

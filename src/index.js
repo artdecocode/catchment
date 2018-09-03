@@ -58,6 +58,33 @@ class Catchment extends Writable {
   }
 }
 
+export default Catchment
+
+/**
+ * Collect data into a catchment, and return results when the stream finishes.
+ * @param {Readable} readable A readable stream to collect all data from. If an error occurs during reading of this stream, the promise will be rejected with it.
+ * @param {CollectOptions} options Options when collecting data into a catchment. They can extend `Writable` options which will be passed to the `Catchment` constructor.
+ * @param {boolean} [options.binary=false] Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. Default `false`.
+ * @example
+ *
+ * import { collect } from 'catchment'
+ * import { createReadStream } from 'fs'
+ *
+ * const readFile = async (path) => {
+ *  const rs = createReadStream(path)
+ *  const res = await collect()
+ *  return res
+ * }
+ */
+export const collect = async (readable, options = { binary: false }) => {
+  const { promise } = new Catchment({
+    rs: readable,
+    ...options,
+  })
+  const res = await promise
+  return res
+}
+
 /* documentary types/index.xml */
 /**
  * @typedef {import('stream').Readable} Readable
@@ -67,4 +94,10 @@ class Catchment extends Writable {
  * @prop {boolean} [binary=false] Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. Default `false`.
  */
 
-export default Catchment
+/* documentary types/collect.xml */
+/**
+ * @typedef {import('stream').Readable} Readable
+ *
+ * @typedef {Object} CollectOptions Options when collecting data into a catchment. They can extend `Writable` options which will be passed to the `Catchment` constructor.
+ * @prop {boolean} [binary=false] Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. Default `false`.
+ */
