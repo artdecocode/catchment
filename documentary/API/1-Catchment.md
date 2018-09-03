@@ -15,13 +15,13 @@ A new _Catchment_ can be created with a constructor, which accepts [optional opt
 ]
 ```
 
-## Options
+### `Options`
 
 An optional options object can be passed to the constructor.
 
 %TYPEDEF types/index.xml%
 
-### Collect Buffer
+#### Collect Buffer
 
 To receive a buffer, the `binary` option should be set to `true`:
 
@@ -29,7 +29,7 @@ To receive a buffer, the `binary` option should be set to `true`:
 
 %FORK example example/binary.js%
 
-### Pipe Readable
+#### Pipe Readable
 
 To automatically pipe a _Readable_, and reject the promise if an error occurs there, the `rs` option can be passed:
 

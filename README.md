@@ -14,17 +14,19 @@ yarn add -E catchment
 - [API](#api)
 - [`Catchment` Class](#catchment-class)
   * [`constructor(options?: Options): Catchment`](#constructoroptions-options-catchment)
-- [Options](#options)
-  * [Collect Buffer](#collect-buffer)
-  * [Pipe Readable](#pipe-readable)
+  * [`Options`](#options)
+    * [Collect Buffer](#collect-buffer)
+    * [Pipe Readable](#pipe-readable)
+- [`async collect(readable: Readable, options?: Options): string|Buffer`](#async-collectreadable-readableoptions-options-stringbuffer)
+  * [`CollectOptions`](#collectoptions)
 - [Copyright](#copyright)
 
 ## API
 
-The package exports the default `Catchment` class.
+The package exports the default [_Catchment_ class](#catchment-class), and the [`collect` method](#collect).
 
 ```js
-import Catchment from 'catchment'
+import Catchment, { collect } from 'catchment'
 ```
 
 ## `Catchment` Class
@@ -69,7 +71,7 @@ test-data
 
 ### `constructor(`<br/>&nbsp;&nbsp;`options?: Options,`<br/>`): Catchment`
 
-## Options
+### `Options`
 
 An optional options object can be passed to the constructor.
 
@@ -82,7 +84,7 @@ __`Options`__: Options to pass to the `Writable` super constructor, and others s
 | rs | [_Readable_](#readable) | A readable stream to automatically pipe into the catchment. If an error occurs during reading of this stream, the catchment promise will be rejected with it. | - |
 | binary | _boolean_ | Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. | `false` |
 
-### Collect Buffer
+#### Collect Buffer
 
 To receive a buffer, the `binary` option should be set to `true`:
 
@@ -109,7 +111,7 @@ import { createReadable } from './lib'
 <Buffer 74 65 73 74 2d 64 61 74 61>
 ```
 
-### Pipe Readable
+#### Pipe Readable
 
 To automatically pipe a _Readable_, and reject the promise if an error occurs there, the `rs` option can be passed:
 
@@ -136,6 +138,20 @@ ENOENT: no such file or directory, open 'missing-file.txt'
 ```
 
 
+
+## `async collect(`<br/>&nbsp;&nbsp;`readable: Readable,`<br/>&nbsp;&nbsp;`options?: Options,`<br/>`): string|Buffer`
+
+The collect method is a shorthand for creating a new catchment, and piping a readable stream into it. It will accumulate all data from the read stream, and asynchronously return when the stream finishes. If an error occurs in the stream, the promise will be rejected.
+
+Some options can be passed to the `collect` method.
+
+`import('stream').Readable` __<a name="readable">`Readable`</a>__
+
+__<a name="collectoptions">`CollectOptions`</a>__: Options when collecting data into a catchment. They can extend `Writable` options which will be passed to the `Catchment` constructor.
+
+| Name | Type | Description | Default |
+| ---- | ---- | ----------- | ------- |
+| binary | _boolean_ | Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. | `false` |
 
 ## Copyright
 
