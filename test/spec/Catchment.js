@@ -18,8 +18,8 @@ const T = {
     const res = await catchment.promise
     equal(res, data)
   },
-  async 'reads binary data'({ createReadable, nodeGte, data }) {
-    const expected = nodeGte('v5.10.0') ? Buffer.from(data) : new Buffer(data)
+  async 'reads binary data'({ createReadable, getBuffer, data }) {
+    const expected = getBuffer(data)
     const catchment = new Catchment({
       binary: true,
     })
