@@ -1,3 +1,10 @@
+## 4 September 2018
+
+### 3.1.0
+
+- [feature] The `collect` method to quickly capture data from a stream.
+- [feature] Update error stacks to either clean them from Node's internals, or add lines where _Catchment_ or `collect` were called.
+
 ## 1 September 2018
 
 ### 3.0.1
