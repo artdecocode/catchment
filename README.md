@@ -146,8 +146,6 @@ The collect method is a shorthand for creating a new catchment, and piping a rea
 
 Some options can be passed to the `collect` method.
 
-`import('stream').Readable` __<a name="readable">`Readable`</a>__
-
 __<a name="collectoptions">`CollectOptions`</a>__: Options when collecting data into a catchment. They can extend `Writable` options which will be passed to the `Catchment` constructor.
 
 | Name | Type | Description | Default |
