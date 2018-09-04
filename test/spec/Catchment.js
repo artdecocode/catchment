@@ -44,6 +44,8 @@ const T = {
     { createReadable },
   ) {
     const error = new Error('test-error')
+    error.stack = `Error: test-error
+    at throwError (/test/node.js)`
     await throws({
       async fn() {
         const rs = createReadable('test')
@@ -53,6 +55,7 @@ const T = {
         rs.emit('error', error)
         await promise
       },
+      stack: /at throwError/,
       error,
     })
   },
@@ -65,7 +68,7 @@ const T = {
         })
         await promise
       },
-      stack: /add stack to an error/,
+      stack: /adds stack to an error/,
     })
   },
 }
