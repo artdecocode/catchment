@@ -2,7 +2,7 @@
 ```## async collect => string|Buffer
 [
   ["readable", "Readable"],
-  ["options?", "Options"]
+  ["options?", "CollectOptions"]
 ]
 ```
 

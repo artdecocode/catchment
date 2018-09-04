@@ -17,14 +17,14 @@ yarn add -E catchment
   * [`Options`](#options)
     * [Collect Buffer](#collect-buffer)
     * [Pipe Readable](#pipe-readable)
-- [`async collect(readable: Readable, options?: Options): string|Buffer`](#async-collectreadable-readableoptions-options-stringbuffer)
+- [`async collect(readable: Readable, options?: CollectOptions): string|Buffer`](#async-collectreadable-readableoptions-collectoptions-stringbuffer)
   * [`CollectOptions`](#collectoptions)
 - [Errors Handling](#errors-handling)
 - [Copyright](#copyright)
 
 ## API
 
-The package exports the default [_Catchment_ class](#catchment-class), and the [`collect` method](#collect).
+The package exports the default _Catchment_ class, and the `collect` method.
 
 ```js
 import Catchment, { collect } from 'catchment'
@@ -140,7 +140,7 @@ ENOENT: no such file or directory, open 'missing-file.txt'
 
 
 
-## `async collect(`<br/>&nbsp;&nbsp;`readable: Readable,`<br/>&nbsp;&nbsp;`options?: Options,`<br/>`): string|Buffer`
+## `async collect(`<br/>&nbsp;&nbsp;`readable: Readable,`<br/>&nbsp;&nbsp;`options?: CollectOptions,`<br/>`): string|Buffer`
 
 The collect method is a shorthand for creating a new catchment, and piping a readable stream into it. It will accumulate all data from the read stream, and asynchronously return when the stream finishes. If an error occurs in the stream, the promise will be rejected.
 
@@ -154,9 +154,9 @@ __<a name="collectoptions">`CollectOptions`</a>__: Options when collecting data 
 
 ## Errors Handling
 
-Whenever an error is encountered during reading a readable stream, either piped into the _Catchment_ via the `rs` option, or passed as an argument to the `collect` method, it will result in a rejected promise.
+Whenever an error is encountered during reading a readable stream, either piped into a _Catchment_ via the `rs` option, or passed as an argument to the `collect` method, it will result in a rejected promise.
 
-In the error has a stack, it will be modified to clean it from internal Node.js lines, such as `_module`.
+If the error has a stack, it will be modified to clean it from internal Node.js lines, such as `_module`.
 
 ```js
 import { Readable } from 'stream'
@@ -188,7 +188,7 @@ Error: example-error
     at Readable.read [as _read] (/Users/zavr/adc/catchment/example/error-catchment.js:6:16)
 ```
 
-If the error does not have a stack (which can happen when using `createReadStream` from the `fs` module), it will appear as thrown at the point of either creating an instance of _Catchment_, or calling the `collect` method.
+If the error does not have the stack (which can happen when using `createReadStream` from the `fs` module), it will appear as thrown at the point of either creating an instance of _Catchment_, or calling the `collect` method.
 
 ```js
 import { createReadStream } from 'fs'
