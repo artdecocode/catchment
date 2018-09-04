@@ -1,4 +1,5 @@
 import { equal, throws, deepEqual } from 'zoroaster/assert'
+import { createReadStream } from 'fs'
 import Catchment from '../../src'
 import Context from '../context'
 
@@ -39,7 +40,9 @@ const T = {
       error,
     })
   },
-  async 'returns a rejected promise on error in piped rs'({ createReadable }) {
+  async 'returns a rejected promise on error in piped rs'(
+    { createReadable },
+  ) {
     const error = new Error('test-error')
     await throws({
       async fn() {
@@ -51,6 +54,18 @@ const T = {
         await promise
       },
       error,
+    })
+  },
+  async 'adds stack to an error'() {
+    await throws({
+      async fn() {
+        const rs = createReadStream('test')
+        const { promise } = new Catchment({
+          rs,
+        })
+        await promise
+      },
+      stack: /add stack to an error/,
     })
   },
 }

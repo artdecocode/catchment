@@ -1,4 +1,5 @@
 import { equal, throws, deepEqual } from 'zoroaster/assert'
+import { createReadStream } from 'fs'
 import { collect } from '../../src'
 import Context from '../context'
 
@@ -16,15 +17,18 @@ const T = {
     const res = await collect(rs, { binary: true })
     deepEqual(res, expected)
   },
-  async 'throws on error in piped rs'({ createReadable }) {
-    const error = new Error('test-error')
+  async 'throws on error in piped rs'({ createErrorReadable }) {
     await throws({
-      async fn() {
-        const rs = createReadable('test')
-        rs.emit('error', error)
-        await collect(rs)
-      },
-      error,
+      fn: collect,
+      args: [createErrorReadable('test-data')],
+      stack: /test\/context\/index\.js/,
+    })
+  },
+  async 'adds error stack to errors without stack'() {
+    await throws({
+      fn: collect,
+      args: [createReadStream('test')],
+      stack: /adds error stack to errors without stack/,
     })
   },
 }

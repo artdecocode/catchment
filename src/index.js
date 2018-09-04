@@ -1,4 +1,6 @@
 import { Writable } from 'stream'
+import erotic from 'erotic'
+import cleanStack from 'clean-stack'
 
 function joinBufferData(array) {
   return array.join('')
@@ -23,7 +25,7 @@ class Catchment extends Writable {
    * const { promise } = new Catchment({ rs })
    * const res = await promise
    */
-  constructor(options = {}) {
+  constructor({ er = erotic(true), ...options } = {}) {
     super(options)
     const { binary, rs } = options
     this._caughtData = []
@@ -38,9 +40,18 @@ class Catchment extends Writable {
         r(d)
         this._caughtData = []
       })
-      this.on('error', j)
+      this.once('error', (e) => {
+        if (e.stack.indexOf('\n') == -1) {
+          const err = er(e)
+          j(err)
+        } else {
+          const stack = cleanStack(e.stack)
+          e.stack = stack
+          j(e)
+        }
+      })
       if (rs) {
-        rs.on('error', j)
+        rs.once('error', e => this.emit('error', e))
         rs.pipe(this)
       }
     })
@@ -80,6 +91,7 @@ export const collect = async (readable, options = { binary: false }) => {
   const { promise } = new Catchment({
     rs: readable,
     ...options,
+    er: erotic(true),
   })
   const res = await promise
   return res
