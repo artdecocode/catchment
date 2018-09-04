@@ -19,6 +19,7 @@ yarn add -E catchment
     * [Pipe Readable](#pipe-readable)
 - [`async collect(readable: Readable, options?: Options): string|Buffer`](#async-collectreadable-readableoptions-options-stringbuffer)
   * [`CollectOptions`](#collectoptions)
+- [Errors Handling](#errors-handling)
 - [Copyright](#copyright)
 
 ## API
@@ -152,6 +153,64 @@ __<a name="collectoptions">`CollectOptions`</a>__: Options when collecting data 
 | Name | Type | Description | Default |
 | ---- | ---- | ----------- | ------- |
 | binary | _boolean_ | Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. | `false` |
+
+## Errors Handling
+
+Whenever an error is encountered during reading a readable stream, either piped into the _Catchment_ via the `rs` option, or passed as an argument to the `collect` method, it will result in a rejected promise.
+
+In the error has a stack, it will be modified to clean it from internal Node.js lines, such as `_module`.
+
+```js
+import { Readable } from 'stream'
+import Catchment from 'catchment'
+
+const rs = new Readable({
+  read() {
+    const er = new Error('example-error')
+    this.emit('error', er) // emit an error to reject catchment
+    this.push(null)
+  },
+})
+
+;(async () => {
+  try {
+    const catchment = new Catchment({
+      rs,
+    })
+    rs.pipe(catchment)
+    await catchment.promise
+  } catch ({ stack }) {
+    console.log(stack)
+  }
+})()
+```
+
+```
+Error: example-error
+    at Readable.read [as _read] (/Users/zavr/adc/catchment/example/error-catchment.js:6:16)
+```
+
+If the error does not have a stack (which can happen when using `createReadStream` from the `fs` module), it will appear as thrown at the point of either creating an instance of _Catchment_, or calling the `collect` method.
+
+```js
+import { createReadStream } from 'fs'
+import { collect } from 'catchment'
+
+(async () => {
+  try {
+    const rs = createReadStream('missing-file.txt')
+    await collect(rs)
+  } catch ({ stack }) {
+    console.log(stack)
+  }
+})()
+```
+
+```
+Error: ENOENT: no such file or directory, open 'missing-file.txt'
+    at /Users/zavr/adc/catchment/example/error-collect.js:7:11
+    at Object.<anonymous> (/Users/zavr/adc/catchment/example/error-collect.js:11:3)
+```
 
 ## Copyright
 
