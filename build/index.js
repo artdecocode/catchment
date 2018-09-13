@@ -1,6 +1,6 @@
 const { Writable } = require('stream');
 let erotic = require('erotic'); if (erotic && erotic.__esModule) erotic = erotic.default;
-let cleanStack = require('clean-stack'); if (cleanStack && cleanStack.__esModule) cleanStack = cleanStack.default;
+let cleanStack = require('@artdeco/clean-stack'); if (cleanStack && cleanStack.__esModule) cleanStack = cleanStack.default;
 
 function joinBufferData(array) {
   return array.join('')

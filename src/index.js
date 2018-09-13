@@ -1,6 +1,6 @@
 import { Writable } from 'stream'
 import erotic from 'erotic'
-import cleanStack from 'clean-stack'
+import cleanStack from '@artdeco/clean-stack'
 
 function joinBufferData(array) {
   return array.join('')
