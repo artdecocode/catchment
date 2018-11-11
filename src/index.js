@@ -51,7 +51,9 @@ class Catchment extends Writable {
         }
       })
       if (rs) {
-        rs.once('error', e => this.emit('error', e))
+        rs.once('error', e => {
+          this.emit('error', e)
+        })
         rs.pipe(this)
       }
     })

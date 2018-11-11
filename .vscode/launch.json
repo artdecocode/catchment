@@ -21,6 +21,18 @@
       "skipFiles": [
           "<node_internals>/**"
       ],
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Example",
+      "program": "${workspaceFolder}/example/index.js",
+      "args": [
+        "example/error-collect2.js"
+      ],
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
     }
   ]
 }
