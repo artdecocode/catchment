@@ -1,6 +1,6 @@
 {
   "name": "catchment",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "Collect Node.js Stream Data Into Catchment: Stream With Promise Property Resolved On Finish.",
   "main": "build",
   "files": [
