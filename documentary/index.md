@@ -8,6 +8,10 @@ A Node.js package to collect stream data into a catchment and return it either a
 yarn add -E catchment
 ```
 
+%~%
+
 ## Table of Contents
 
 %TOC%
+
+%~%

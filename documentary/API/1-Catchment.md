@@ -1,4 +1,3 @@
-
 ## `Catchment` Class
 
 _Catchment_ extends `Writable`, and pushes incoming data into an internal array. When the stream finishes, a promise referenced in the `promise` property is fulfilled with concatenated data. If an error occurred, the promise is rejected.
@@ -36,3 +35,5 @@ To automatically pipe a _Readable_, and reject the promise if an error occurs th
 %EXAMPLE: example/rs.js, ../src => catchment%
 
 %FORK example example/rs.js%
+
+%~%

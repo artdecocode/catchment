@@ -1,5 +1,6 @@
 import { Readable } from 'stream'
 import { nodeGte } from 'noddy'
+export { createReadStream } from 'fs'
 
 export default class Context {
   /**
@@ -42,6 +43,9 @@ export default class Context {
   get nodeGte() {
     return nodeGte
   }
+  /**
+   * The test data to write: `test-data`.
+   */
   get data() {
     return 'test-data'
   }

@@ -8,6 +8,8 @@ A Node.js package to collect stream data into a catchment and return it either a
 yarn add -E catchment
 ```
 
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg?sanitize=true"></a></p>
+
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
@@ -18,9 +20,12 @@ yarn add -E catchment
     * [Collect Buffer](#collect-buffer)
     * [Pipe Readable](#pipe-readable)
 - [`async collect(readable: Readable, options?: CollectOptions): string|Buffer`](#async-collectreadable-readableoptions-collectoptions-stringbuffer)
-  * [`CollectOptions`](#collectoptions)
+  * [`CollectOptions`](#type-collectoptions)
 - [Errors Handling](#errors-handling)
+- [Proxy Error](#proxy-error)
 - [Copyright](#copyright)
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg?sanitize=true"></a></p>
 
 ## API
 
@@ -29,6 +34,8 @@ The package exports the default _Catchment_ class, and the `collect` method.
 ```js
 import Catchment, { collect } from 'catchment'
 ```
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
 
 ## `Catchment` Class
 
@@ -76,14 +83,14 @@ test-data
 
 An optional options object can be passed to the constructor.
 
-`import('stream').Readable` __<a name="readable">`Readable`</a>__
+`import('stream').Readable` __<a name="type-readable">`Readable`</a>__
 
-__`Options`__: Options to pass to the `Writable` super constructor, and others shown below.
+__<a name="type-options">`Options`</a>__: Options to pass to the `Writable` super constructor, and others shown below.
 
-| Name | Type | Description | Default |
-| ---- | ---- | ----------- | ------- |
-| rs | [_Readable_](#readable) | A readable stream to automatically pipe into the catchment. If an error occurs during reading of this stream, the catchment promise will be rejected with it. | - |
-| binary | _boolean_ | Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. | `false` |
+|  Name  |             Type             |                                                                          Description                                                                          | Default |
+| ------ | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| rs     | _[Readable](#type-readable)_ | A readable stream to automatically pipe into the catchment. If an error occurs during reading of this stream, the catchment promise will be rejected with it. | -       |
+| binary | _boolean_                    | Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method.                    | `false` |
 
 #### Collect Buffer
 
@@ -138,19 +145,26 @@ import { createReadStream } from 'fs'
 ENOENT: no such file or directory, open 'missing-file.txt'
 ```
 
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg?sanitize=true"></a></p>
+
+
+
 
 
 ## `async collect(`<br/>&nbsp;&nbsp;`readable: Readable,`<br/>&nbsp;&nbsp;`options?: CollectOptions,`<br/>`): string|Buffer`
 
 The collect method is a shorthand for creating a new catchment, and piping a readable stream into it. It will accumulate all data from the read stream, and asynchronously return when the stream finishes. If an error occurs in the stream, the promise will be rejected.
 
-Some options can be passed to the `collect` method.
+Some options can be passed to the `collect` method. The `proxyError` option is described in the [Proxy Error](#proxy-error) section.
 
-__<a name="collectoptions">`CollectOptions`</a>__: Options when collecting data into a catchment. They can extend `Writable` options which will be passed to the `Catchment` constructor.
+__<a name="type-collectoptions">`CollectOptions`</a>__: Options when collecting data into a catchment. They can extend `Writable` options which will be passed to the `Catchment` constructor.
 
-| Name | Type | Description | Default |
-| ---- | ---- | ----------- | ------- |
-| binary | _boolean_ | Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. | `false` |
+|    Name    |   Type    |                                                                                                Description                                                                                                 | Default |
+| ---------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| binary     | _boolean_ | Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method.                                                                 | `false` |
+| proxyError | _boolean_ | Sets whether an error emitted by the stream with have its stack start at the line where the `collect` was called rather than inside of the stream. In other words, hides the implementation of the stream. | `false` |
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg?sanitize=true"></a></p>
 
 ## Errors Handling
 
@@ -210,8 +224,85 @@ Error: ENOENT: no such file or directory, open 'missing-file.txt'
     at Object.<anonymous> (/Users/zavr/adc/catchment/example/error-collect.js:11:3)
 ```
 
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/5.svg?sanitize=true"></a></p>
+
+## Proxy Error
+
+The `collect` method can throw an error with its stack updated to when it was called. This can be useful when using 3-rd party streams without the need to look into details of their internal stack. By setting the `proxyError` option, all internal lines of the stream will be hidden, and the error will appear to be thrown by the call to the `collect` method.
+
+```js
+import { collect } from 'catchment'
+import { createReadable } from './lib'
+import frame from 'frame-of-mind'
+
+/** 0. Prepare a read function in a stream that emits an error. */
+function read() {
+  const err = new Error('Whatever error happens')
+  setTimeout(() => {
+    this.emit('error', err)
+    this.push(null)
+  }, 10)
+}
+
+const Collect = async ({ proxyError } = {}) => {
+  try {
+    const rs = createReadable(read)
+    await collect(rs, { proxyError })
+  } catch ({ stack }) {
+    console.log('COLLECT %s \n%s', proxyError ? 'WITH PROXY' : '', frame(stack))
+  }
+}
+
+const Listeners = async () => {
+  try {
+    const rs = createReadable(read)
+    const p = collect(rs).catch(() => {})
+    await new Promise((r, j) => {
+      rs.on('finish', r)
+      rs.on('error', j)
+    })
+    await p
+  } catch ({ stack }) {
+    console.log('LISTENERS:\n%s', frame(stack))
+  }
+}
+
+(async () => {
+  await Collect()
+  await Listeners()
+  await Collect({ proxyError: true })
+})()
+```
+
+```
+COLLECT  
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ Error: Whatever error happens                                                          │
+│     at Readable.read (/Users/zavr/adc/catchment/example/error-collect2.js:8:15)        │
+│     at Readable.read [as _read] (/Users/zavr/adc/catchment/example/lib/index.js:11:16) │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+LISTENERS:
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ Error: Whatever error happens                                                          │
+│     at Readable.read (/Users/zavr/adc/catchment/example/error-collect2.js:8:15)        │
+│     at Readable.read [as _read] (/Users/zavr/adc/catchment/example/lib/index.js:11:16) │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+COLLECT WITH PROXY 
+┌────────────────────────────────────────────────────────────────────────────┐
+│ Error: Whatever error happens                                              │
+│     at Collect (/Users/zavr/adc/catchment/example/error-collect2.js:18:11) │
+│     at /Users/zavr/adc/catchment/example/error-collect2.js:41:9            │
+│     at <anonymous>                                                         │
+└────────────────────────────────────────────────────────────────────────────┘
+```
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/6.svg?sanitize=true"></a></p>
+
+
 ## Copyright
 
 (c) [Art Deco][1] 2018
 
 [1]: https://artdeco.bz
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/-1.svg?sanitize=true"></a></p>

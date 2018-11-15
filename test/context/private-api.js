@@ -1,0 +1,1 @@
+export { pipeError } from '../../src/lib'

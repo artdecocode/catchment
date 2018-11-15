@@ -1,4 +1,3 @@
-
 ## Errors Handling
 
 Whenever an error is encountered during reading a readable stream, either piped into a _Catchment_ via the `rs` option, or passed as an argument to the `collect` method, it will result in a rejected promise.
@@ -14,3 +13,5 @@ If the error does not have the stack (which can happen when using `createReadStr
 %EXAMPLE: example/error-collect.js, ../src => catchment%
 
 %FORK example example/error-collect%
+
+%~%
