@@ -1,3 +1,12 @@
+## 16 November 2018
+
+### 3.2.0
+
+- [feature] The proxy error option to hide the error stack.
+- [lib] Pipe error function.
+- [deps] Update dependencies.
+- [doc] Sections breaks.
+
 ## 13 September 2018
 
 ### 3.1.1
