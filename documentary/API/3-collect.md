@@ -1,4 +1,3 @@
-
 ```## async collect => string|Buffer
 [
   ["readable", "Readable"],
@@ -11,3 +10,5 @@ The collect method is a shorthand for creating a new catchment, and piping a rea
 Some options can be passed to the `collect` method.
 
 %TYPEDEF types/collect.xml%
+
+%~%
