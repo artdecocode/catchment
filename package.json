@@ -1,7 +1,7 @@
 {
   "name": "catchment",
   "version": "3.1.1",
-  "description": "Collect stream data into a catchment.",
+  "description": "Collect Node.js Stream Data Into Catchment: Stream With Promise Property Resolved On Finish.",
   "main": "build",
   "files": [
     "build"
@@ -29,9 +29,9 @@
     "buffer",
     "collect",
     "readable",
+    "read",
     "memory",
     "writable",
-    "readable",
     "promise",
     "data",
     "resolve"
@@ -41,7 +41,7 @@
   "bugs": {
     "url": "https://github.com/artdecocode/catchment/issues"
   },
-  "homepage": "https://github.com/artdecocode/catchment#readme",
+  "homepage": "https://catchment.page",
   "devDependencies": {
     "alamode": "1.6.0",
     "documentary": "1.20.1",
