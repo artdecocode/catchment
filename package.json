@@ -12,6 +12,7 @@
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "test-examples/": "ZOROASTER_TIMEOUT=5000 zoroaster test-examples/spec -b",
     "b": "alamode src -o build",
+    "d": "doc src/index.js -g",
     "doc": "NODE_DEBUG=doc doc documentary -o README.md",
     "build": "yarn-s doc b",
     "e": "node example",
@@ -42,12 +43,13 @@
   },
   "homepage": "https://github.com/artdecocode/catchment#readme",
   "devDependencies": {
-    "alamode": "1.4.0",
-    "documentary": "1.15.1",
+    "alamode": "1.6.0",
+    "documentary": "1.20.1",
     "eslint-config-artdeco": "1.0.1",
+    "frame-of-mind": "1.0.0",
     "noddy": "1.1.1",
     "yarn-s": "1.1.0",
-    "zoroaster": "3.1.0"
+    "zoroaster": "3.6.6"
   },
   "dependencies": {
     "@artdeco/clean-stack": "1.0.0",

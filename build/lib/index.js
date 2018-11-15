@@ -4,7 +4,7 @@
  * @param {Stream} streamB The stream from which the error originates.
  * @returns The stream the error is listened on, i.e., transparent to calling the `.once` method on that stream.
  */
-export const pipeError = (streamA, streamB) => {
+       const pipeError = (streamA, streamB) => {
   streamB
     .once('error', e => {
       streamA.emit('error', e)
@@ -15,3 +15,6 @@ export const pipeError = (streamA, streamB) => {
 /**
  * @typedef {import('stream').Stream} Stream
  */
+
+module.exports.pipeError = pipeError
+//# sourceMappingURL=index.js.map

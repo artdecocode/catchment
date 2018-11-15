@@ -1,30 +1,42 @@
 
 import { collect } from '../src'
-import { Readable } from 'stream'
+import { createReadable } from './lib'
+import frame from 'frame-of-mind'
 
-const rs = new Readable({
-  read() {
-    setTimeout(() => {
-      this.emit('error', new Error('error'))
-    })
-  },
-})
+/** 0. Prepare a read function in a stream that emits an error. */
+function read() {
+  const err = new Error('Whatever error happens')
+  setTimeout(() => {
+    this.emit('error', err)
+    this.push(null)
+  }, 10)
+}
 
-;(async () => {
+const Collect = async ({ proxyError } = {}) => {
   try {
-    await collect(rs)
+    const rs = createReadable(read)
+    await collect(rs, { proxyError })
   } catch ({ stack }) {
-    console.log('Without listeners: ', stack)
+    console.log('COLLECT %s \n%s', proxyError ? 'WITH PROXY' : '', frame(stack))
   }
-})()
+}
 
-;(async () => {
+const Listeners = async () => {
   try {
+    const rs = createReadable(read)
+    const p = collect(rs).catch(() => {})
     await new Promise((r, j) => {
       rs.on('finish', r)
       rs.on('error', j)
     })
+    await p
   } catch ({ stack }) {
-    console.log('With listeners: ', stack)
+    console.log('LISTENERS:\n%s', frame(stack))
   }
+}
+
+(async () => {
+  await Collect()
+  await Listeners()
+  await Collect({ proxyError: true })
 })()

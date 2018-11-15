@@ -3,5 +3,8 @@
     <prop boolean name="binary" default="false">
       Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method.
     </prop>
+    <prop boolean name="proxyError" default="false">
+      Sets whether an error emitted by the stream with have its stack start at the line where the `collect` was called rather than inside of the stream. In other words, hides the implementation of the stream.
+    </prop>
   </type>
 </types>

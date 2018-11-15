@@ -1,6 +1,7 @@
 import { Writable } from 'stream'
 import erotic from 'erotic'
 import cleanStack from '@artdeco/clean-stack'
+import { pipeError } from './lib'
 
 function joinBufferData(array) {
   return array.join('')
@@ -25,7 +26,8 @@ class Catchment extends Writable {
    * const { promise } = new Catchment({ rs })
    * const res = await promise
    */
-  constructor({ er = erotic(true), ...options } = {}) {
+  constructor({ er = erotic(true), proxyError, ...options } = {}) {
+    const wrap = (_, e) => er(e)
     super(options)
     const { binary, rs } = options
     this._caughtData = []
@@ -42,19 +44,17 @@ class Catchment extends Writable {
       })
       this.once('error', (e) => {
         if (e.stack.indexOf('\n') == -1) {
-          const err = er(e)
-          j(err)
+          wrap`${e}`
+          j(e)
         } else {
           const stack = cleanStack(e.stack)
           e.stack = stack
+          if (proxyError) wrap`${e}`
           j(e)
         }
       })
       if (rs) {
-        rs.once('error', e => {
-          this.emit('error', e)
-        })
-        rs.pipe(this)
+        pipeError(this, rs).pipe(this)
       }
     })
   }
@@ -78,18 +78,16 @@ export default Catchment
  * @param {Readable} readable A readable stream to collect all data from. If an error occurs during reading of this stream, the promise will be rejected with it.
  * @param {CollectOptions} options Options when collecting data into a catchment. They can extend `Writable` options which will be passed to the `Catchment` constructor.
  * @param {boolean} [options.binary=false] Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. Default `false`.
+ * @param {boolean} [options.proxyError=false] Sets whether an error emitted by the stream with have its stack start at the line where the `collect` was called rather than inside of the stream. In other words, hides the implementation of the stream. Default `false`.
  * @example
  *
  * import { collect } from 'catchment'
  * import { createReadStream } from 'fs'
  *
- * const readFile = async (path) => {
- *  const rs = createReadStream(path)
- *  const res = await collect()
- *  return res
- * }
+ * const rs = createReadStream(path)
+ * await collect(rs, { proxyError: true })
  */
-export const collect = async (readable, options = { binary: false }) => {
+export const collect = async (readable, options = {}) => {
   const { promise } = new Catchment({
     rs: readable,
     ...options,
@@ -110,8 +108,7 @@ export const collect = async (readable, options = { binary: false }) => {
 
 /* documentary types/collect.xml */
 /**
- * @typedef {import('stream').Readable} Readable
- *
  * @typedef {Object} CollectOptions Options when collecting data into a catchment. They can extend `Writable` options which will be passed to the `Catchment` constructor.
  * @prop {boolean} [binary=false] Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method. Default `false`.
+ * @prop {boolean} [proxyError=false] Sets whether an error emitted by the stream with have its stack start at the line where the `collect` was called rather than inside of the stream. In other words, hides the implementation of the stream. Default `false`.
  */

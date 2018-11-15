@@ -14,7 +14,7 @@ class Context {
 /** @type {Object.<string, (c: Context, a: PrivateApi)>}*/
 export const PipeError = {
   context: [Context, PrivateApi],
-  '!throws the same error as read source'({ error }, { pipeError }) {
+  'throws the same error as read source'({ error }, { pipeError }) {
     const a = new Readable({
       read() {
         this.push('test')
