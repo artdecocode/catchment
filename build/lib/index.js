@@ -17,4 +17,3 @@
  */
 
 module.exports.pipeError = pipeError
-//# sourceMappingURL=index.js.map

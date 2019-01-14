@@ -11,7 +11,7 @@
     "test": "yarn t test/spec",
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "test-examples/": "ZOROASTER_TIMEOUT=5000 zoroaster test-examples/spec -b",
-    "b": "alamode src -o build",
+    "b": "alamode src -o build -s",
     "d": "doc src/index.js -g",
     "doc": "NODE_DEBUG=doc doc documentary -o README.md",
     "build": "yarn-s doc b",
@@ -52,7 +52,7 @@
     "zoroaster": "3.6.6"
   },
   "dependencies": {
-    "@artdeco/clean-stack": "1.0.0",
+    "@artdeco/clean-stack": "1.0.1",
     "erotic": "2.0.1"
   }
 }

@@ -115,4 +115,3 @@ module.exports=Catchment
 
 
 module.exports.collect = collect
-//# sourceMappingURL=index.js.map
