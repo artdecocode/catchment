@@ -8,6 +8,18 @@ A Node.js package to collect stream data into a catchment and return it either a
 yarn add -E catchment
 ```
 
+<table>
+  <tr></tr>
+  <tr>
+    <td align="center">
+      <a href="https://www.technation.sucks">
+        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif" alt="Tech Nation Visa" />
+      </a><br />
+      Sponsored by <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>.
+    </td>
+  </tr>
+</table>
+
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg?sanitize=true"></a></p>
 
 ## Table of Contents
@@ -300,8 +312,23 @@ COLLECT WITH PROXY
 
 ## Copyright
 
-(c) [Art Deco][1] 2019
-
-[1]: https://artd.eco
+<table>
+  <tr>
+    <th>
+      <a href="https://artd.eco">
+        <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
+      </a>
+    </th>
+    <th>© <a href="https://artd.eco">Art Deco</a> 2019</th>
+    <th>
+      <a href="https://www.technation.sucks" title="Tech Nation Visa">
+        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif" alt="Tech Nation Visa" />
+      </a>
+    </th>
+    <th>
+      <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>
+    </th>
+  </tr>
+</table>
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/-1.svg?sanitize=true"></a></p>
