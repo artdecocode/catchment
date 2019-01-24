@@ -1,3 +1,9 @@
+## 25 January 2019
+
+### 3.2.2
+
+- [package] Add sponsor.
+
 ## 14 January 2019
 
 ### 3.2.1
