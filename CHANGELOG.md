@@ -1,3 +1,9 @@
+## 2 April 2019
+
+### [3.2.3](git+https://github.com/artdecocode/catchment/compare/v3.2.2...v3.2.3)
+
+- [deps] Update `erotic`.
+
 ## 25 January 2019
 
 ### 3.2.2
