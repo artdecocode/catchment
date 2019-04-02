@@ -4,9 +4,9 @@ _Catchment_ extends `Writable`, and pushes incoming data into an internal array.
 
 A new _Catchment_ can be created with a constructor, which accepts [optional options](#options).
 
-%EXAMPLE: example/catchment.js, ../src => catchment, javascript%
+%EXAMPLE: example/catchment, ../src => catchment%
 
-%FORK example example/catchment.js%
+%FORK example/catchment%
 
 ```### constructor => Catchment
 [
@@ -24,16 +24,16 @@ An optional options object can be passed to the constructor.
 
 To receive a buffer, the `binary` option should be set to `true`:
 
-%EXAMPLE: example/binary.js, ../src => catchment, javascript%
+%EXAMPLE: example/binary, ../src => catchment%
 
-%FORK example example/binary.js%
+%FORK example/binary%
 
 #### Pipe Readable
 
 To automatically pipe a _Readable_, and reject the promise if an error occurs there, the `rs` option can be passed:
 
-%EXAMPLE: example/rs.js, ../src => catchment%
+%EXAMPLE: example/rs, ../src => catchment%
 
-%FORK example example/rs.js%
+%FORK example/rs%
 
 %~%

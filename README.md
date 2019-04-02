@@ -13,9 +13,13 @@ yarn add -E catchment
   <tr>
     <td align="center">
       <a href="https://www.technation.sucks">
-        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif" alt="Tech Nation Visa" />
-      </a><br />
-      Sponsored by <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>.
+        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif"
+          alt="Tech Nation Visa" />
+      </a>
+      <br />
+      Sponsored by 
+      <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>
+      .
     </td>
   </tr>
 </table>
@@ -55,7 +59,7 @@ _Catchment_ extends `Writable`, and pushes incoming data into an internal array.
 
 A new _Catchment_ can be created with a constructor, which accepts [optional options](#options).
 
-```javascript
+```js
 /* yarn example/catchment.js */
 import { Readable } from 'stream'
 import Catchment from 'catchment'
@@ -108,7 +112,7 @@ __<a name="type-options">`Options`</a>__: Options to pass to the `Writable` supe
 
 To receive a buffer, the `binary` option should be set to `true`:
 
-```javascript
+```js
 /* yarn example/binary.js */
 import Catchment from 'catchment'
 import { createReadable } from './lib'
@@ -319,15 +323,14 @@ COLLECT WITH PROXY
         <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
       </a>
     </th>
-    <th>© <a href="https://artd.eco">Art Deco</a> 2019</th>
+    <th>© <a href="https://artd.eco">Art Deco</a>   2019</th>
     <th>
       <a href="https://www.technation.sucks" title="Tech Nation Visa">
-        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif" alt="Tech Nation Visa" />
+        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif"
+          alt="Tech Nation Visa" />
       </a>
     </th>
-    <th>
-      <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>
-    </th>
+    <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
   </tr>
 </table>
 

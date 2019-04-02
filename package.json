@@ -2,7 +2,7 @@
   "name": "catchment",
   "version": "3.2.2",
   "description": "Collect Node.js Stream Data Into Catchment: Stream With Promise Property Resolved On Finish.",
-  "main": "build",
+  "main": "build/index.js",
   "module": "src/index.js",
   "files": [
     "build",
@@ -17,7 +17,7 @@
     "d": "doc src/index.js -g",
     "doc": "NODE_DEBUG=doc doc documentary -o README.md",
     "build": "yarn-s doc b",
-    "e": "node example",
+    "e": "alanode",
     "example/catchment.js": "yarn e example/catchment",
     "example/binary.js": "yarn e example/binary",
     "example/rs.js": "yarn e example/rs"
@@ -45,16 +45,16 @@
   },
   "homepage": "https://artd.eco",
   "devDependencies": {
-    "alamode": "1.6.1",
-    "documentary": "1.20.1",
+    "alamode": "1.9.0",
+    "documentary": "1.23.2",
     "eslint-config-artdeco": "1.0.1",
-    "frame-of-mind": "1.0.0",
+    "frame-of-mind": "1.1.0",
     "noddy": "1.1.1",
     "yarn-s": "1.1.0",
-    "zoroaster": "3.6.6"
+    "zoroaster": "3.11.2"
   },
   "dependencies": {
     "@artdeco/clean-stack": "1.0.1",
-    "erotic": "2.0.2"
+    "erotic": "2.0.3"
   }
 }
