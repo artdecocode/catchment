@@ -1,3 +1,11 @@
+## 10 April 2019
+
+### [3.3.0](git+https://github.com/artdecocode/catchment/compare/v3.2.3...v3.3.0)
+
+- [types] Fix types for _Google Closure Compiler_ w/ _Depack_.
+- [externs] Provide externs.
+- [deps] Update and unlock dependencies.
+
 ## 2 April 2019
 
 ### [3.2.3](git+https://github.com/artdecocode/catchment/compare/v3.2.2...v3.2.3)
