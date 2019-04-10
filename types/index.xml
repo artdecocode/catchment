@@ -1,7 +1,7 @@
-<types>
+<types namespace="_catchment">
   <import name="Readable" from="stream" />
   <type name="Options" desc="Options to pass to the `Writable` super constructor, and others shown below." noToc>
-    <prop opt name="rs" type="Readable">
+    <prop opt name="rs" type="!stream.Readable">
       A readable stream to automatically pipe into the catchment. If an error occurs during reading of this stream, the catchment promise will be rejected with it.
     </prop>
     <prop boolean name="binary" default="false">

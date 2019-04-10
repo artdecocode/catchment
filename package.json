@@ -4,17 +4,14 @@
   "description": "Collect Node.JS Stream Data Into Catchment: Stream With Promise Property Resolved On Finish.",
   "main": "build/index.js",
   "module": "src/index.js",
-  "files": [
-    "build",
-    "src"
-  ],
   "scripts": {
     "t": "zoroaster -a",
     "test": "yarn t test/spec",
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "test-examples/": "ZOROASTER_TIMEOUT=5000 zoroaster test-examples/spec -b",
     "b": "alamode src -o build -s",
-    "d": "doc src/index.js -g",
+    "d": "typal src/index.js -c",
+    "externs": "typal externs.js -e",
     "doc": "NODE_DEBUG=doc doc documentary -o README.md",
     "build": "yarn-s doc b",
     "e": "alanode",
@@ -22,6 +19,12 @@
     "example/binary.js": "yarn e example/binary",
     "example/rs.js": "yarn e example/rs"
   },
+  "externs": "externs.js",
+  "files": [
+    "build",
+    "src",
+    "externs.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/artdecocode/catchment.git"
@@ -54,7 +57,7 @@
     "zoroaster": "^3.11.4"
   },
   "dependencies": {
-    "@artdeco/clean-stack": "^1.1.0",
+    "@artdeco/clean-stack": "^1.1.1",
     "erotic": "^2.1.0"
   }
 }
