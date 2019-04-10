@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/catchment.svg)](https://npmjs.org/package/catchment)
 
-A Node.js package to collect stream data into a catchment and return it either as a buffer or a string.
+A Node.JS package to collect stream data into a catchment and return it either as a buffer or a string.
 
 ```
 yarn add -E catchment
@@ -50,6 +50,8 @@ The package exports the default _Catchment_ class, and the `collect` method.
 ```js
 import Catchment, { collect } from 'catchment'
 ```
+
+The types and [externs](externs.js) for _Google Closure Compiler_ via [**_Depack_**](https://github.com/dpck/depack) are defined in the `_catchment` namespace.
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
 
