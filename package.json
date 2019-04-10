@@ -1,7 +1,7 @@
 {
   "name": "catchment",
   "version": "3.2.3",
-  "description": "Collect Node.js Stream Data Into Catchment: Stream With Promise Property Resolved On Finish.",
+  "description": "Collect Node.JS Stream Data Into Catchment: Stream With Promise Property Resolved On Finish.",
   "main": "build/index.js",
   "module": "src/index.js",
   "files": [
@@ -45,16 +45,16 @@
   },
   "homepage": "https://artd.eco",
   "devDependencies": {
-    "alamode": "1.9.0",
-    "documentary": "1.23.2",
+    "alamode": "^1.9.2",
+    "documentary": "^1.23.4",
     "eslint-config-artdeco": "1.0.1",
-    "frame-of-mind": "1.1.0",
-    "noddy": "1.1.1",
+    "frame-of-mind": "^1.1.0",
+    "noddy": "^1.1.1",
     "yarn-s": "1.1.0",
-    "zoroaster": "3.11.2"
+    "zoroaster": "^3.11.4"
   },
   "dependencies": {
-    "@artdeco/clean-stack": "1.0.1",
-    "erotic": "2.0.3"
+    "@artdeco/clean-stack": "^1.1.0",
+    "erotic": "^2.1.0"
   }
 }
