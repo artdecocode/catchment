@@ -1,5 +1,5 @@
 <types namespace="_catchment">
-  <import name="Readable" from="stream" />
+  <import name="Readable" from="stream" link="https://nodejs.org/api/stream.html#stream_class_stream_readable" />
   <type name="Options" desc="Options to pass to the `Writable` super constructor, and others shown below." noToc>
     <prop opt name="rs" type="!stream.Readable">
       A readable stream to automatically pipe into the catchment. If an error occurs during reading of this stream, the catchment promise will be rejected with it.

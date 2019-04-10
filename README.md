@@ -36,7 +36,7 @@ yarn add -E catchment
     * [Collect Buffer](#collect-buffer)
     * [Pipe Readable](#pipe-readable)
 - [`async collect(readable: Readable, options?: CollectOptions): string|Buffer`](#async-collectreadable-readableoptions-collectoptions-stringbuffer)
-  * [`CollectOptions`](#type-collectoptions)
+  * [`_catchment.CollectOptions`](#type-_catchmentcollectoptions)
 - [Errors Handling](#errors-handling)
 - [Proxy Error](#proxy-error)
 - [Copyright](#copyright)
@@ -99,14 +99,14 @@ test-data
 
 An optional options object can be passed to the constructor.
 
-`import('stream').Readable` __<a name="type-readable">`Readable`</a>__
+[`import('stream').Readable`](https://nodejs.org/api/stream.html#stream_class_stream_readable) __<a name="type-streamreadable">`stream.Readable`</a>__
 
-__<a name="type-options">`Options`</a>__: Options to pass to the `Writable` super constructor, and others shown below.
+__<a name="type-_catchmentoptions">`_catchment.Options`</a>__: Options to pass to the `Writable` super constructor, and others shown below.
 
-|  Name  |             Type             |                                                                          Description                                                                          | Default |
-| ------ | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| rs     | _[Readable](#type-readable)_ | A readable stream to automatically pipe into the catchment. If an error occurs during reading of this stream, the catchment promise will be rejected with it. | -       |
-| binary | _boolean_                    | Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method.                    | `false` |
+|  Name  |                    Type                    |                                                                          Description                                                                          | Default |
+| ------ | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| rs     | _[!stream.Readable](#type-streamreadable)_ | A readable stream to automatically pipe into the catchment. If an error occurs during reading of this stream, the catchment promise will be rejected with it. | -       |
+| binary | _boolean_                                  | Whether to return a raw buffer instead of a string. The string is created by joining all incoming chunks together with `.join('')` method.                    | `false` |
 
 #### Collect Buffer
 
@@ -173,7 +173,7 @@ The collect method is a shorthand for creating a new catchment, and piping a rea
 
 Some options can be passed to the `collect` method. The `proxyError` option is described in the [Proxy Error](#proxy-error) section.
 
-__<a name="type-collectoptions">`CollectOptions`</a>__: Options when collecting data into a catchment. They can extend `Writable` options which will be passed to the `Catchment` constructor.
+__<a name="type-_catchmentcollectoptions">`_catchment.CollectOptions`</a>__: Options when collecting data into a catchment. They can extend `Writable` options which will be passed to the `Catchment` constructor.
 
 |    Name    |   Type    |                                                                                                Description                                                                                                 | Default |
 | ---------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
